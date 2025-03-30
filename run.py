@@ -1,8 +1,8 @@
 import asyncio
 import logging
 import sys
-from config import bot, dp
-from handlers import router
+from app.main.config import bot, dp
+from app.main.handlers import router
 
 
 # Вывод действий бота в консоль
