@@ -175,7 +175,7 @@ async def confirm_sign_up_on_doctor(callback: CallbackQuery, state: FSMContext):
     text = (
         '✅ Ваша запись успешно создана!'
     )
-    message_manager = MessageManager(bot=callback.bto, state=state)
+    message_manager = MessageManager(bot=callback.bot, state=state)
     await message_manager.send_photo(
         obj=callback,
         text=text,
@@ -189,11 +189,10 @@ async def confirm_sign_up_on_doctor(callback: CallbackQuery, state: FSMContext):
     text = (
         '<b>Найти нас можете по данному адресу:</b> Манежная пл., 1, стр. 2, Москва, Россия, 125009'
     )
-    message_manager = MessageManager(bot=callback.bto, state=state)
+    message_manager = MessageManager(bot=callback.bot, state=state)
     await message_manager.send_photo(
         obj=callback,
         text=text,
-        remove_previous=True,
         clear_state_all_exception_photo_message_id=True
     )
 
