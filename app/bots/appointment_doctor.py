@@ -171,11 +171,25 @@ async def end_sign_up_on_doctor(callback: CallbackQuery, state: FSMContext):
 
 @router.callback_query(F.data == 'confirm_appointment_doctor')
 async def confirm_sign_up_on_doctor(callback: CallbackQuery, state: FSMContext):
-    """Подтвердили данные записи"""
+    """Приняли подтверждение данных записи"""
     text = (
         '✅ Ваша запись успешно создана!'
     )
-    message_manager = MessageManager(bot=callback.bot, state=state)
+    message_manager = MessageManager(bot=callback.bto, state=state)
+    await message_manager.send_photo(
+        obj=callback,
+        text=text,
+        remove_previous=True,
+        clear_state_all_exception_photo_message_id=True
+    )
+
+    latitude, longitude = 55.756404757933765, 37.615527927133925
+    await callback.message.answer_location(latitude=latitude, longitude=longitude)
+
+    text = (
+        '<b>Найти нас можете по данному адресу:</b> Манежная пл., 1, стр. 2, Москва, Россия, 125009'
+    )
+    message_manager = MessageManager(bot=callback.bto, state=state)
     await message_manager.send_photo(
         obj=callback,
         text=text,
@@ -188,7 +202,7 @@ async def confirm_sign_up_on_doctor(callback: CallbackQuery, state: FSMContext):
 
 @router.callback_query(F.data == 'restart_appointment_doctor')
 async def restart_sign_up_on_doctor(callback: CallbackQuery, state: FSMContext):
-    """Подтвердили данные записи"""
+    """Отклонили подтверждение данных записи"""
     text = (
         'Вы решили перезаписать данные'
     )
